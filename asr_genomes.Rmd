@@ -1,0 +1,231 @@
+---
+title: "Worm genomes and life cycle transitions"
+output: github_document
+---
+
+Check the phylogenies of exisiting helminth genomes to see how many life cycle length transitions occurred.
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(RColorBrewer)
+library(rotl)
+library(ape)
+library(phytools)
+
+options(stringsAsFactors = FALSE)
+
+dat <- read.csv(file = "data/combined_data_files_filledin.csv", header = TRUE, sep = ',')
+```
+
+Get the ott_id from tnrs.
+
+```{r}
+resolved_names <- tnrs_match_names(dat$Parasite.species, context_name = "Animals")
+```
+
+Check if ott_id is in the open tree of life. Checks if name is for example incertae sedis. One species is considered to be incorrect.
+
+```{r}
+genomes_in_tree <- is_in_tree(ott_id(resolved_names))
+genomes_in_tree[!(genomes_in_tree)]
+```
+
+```{r}
+inspect(resolved_names, taxon_name = "Schmidtea mediterranea")
+```
+
+Remove this species and download the subtree from the open tree of life. (have to add it separately...)
+
+```{r}
+resolved_names_noSchmidtea <- filter(resolved_names, unique_name != "Schmidtea mediterranea")
+genome_tree <- tol_induced_subtree(ott_ids = resolved_names_noSchmidtea$ott_id, label_format = "name")
+```
+
+Plot the tree.
+
+```{r}
+plot(genome_tree, cex = 0.5)
+```
+
+Many polytomies. Could probably get more resolved tree from sequence data. It is just for illustration for now. Let's get the tree in shape for mapping.
+
+```{r}
+# remove trouble point from data
+dat_noSchmidtea <- filter(dat, Parasite.species != "Schmidtea mediterranea")
+
+# remove _ from tip labels, so it will match species names in data table
+genome_tree$tip.label <- gsub(pattern = "_", replacement =  " ", x = genome_tree$tip.label)
+
+# create tip state for mapping
+mv <- match(genome_tree$tip.label, dat_noSchmidtea$Parasite.species)
+tip.state <- dat_noSchmidtea$parasitism[mv]
+names(tip.state)  <- dat_noSchmidtea$Parasite.species[mv]
+
+# prep tree for mapping
+  # making dichotomous is not needed
+#tree.di <- multi2di(genome_tree, random = TRUE)
+#Nnode <- tree.di$Nnode
+#tree.di$node.label <- (1:Nnode+(1+Nnode))
+
+tree.di <- compute.brlen(tree.di) # simple branch lengths
+```
+
+Stochastic character mapping. Might not be the best approach...
+
+```{r}
+asr <- make.simmap(tree.di, x = tip.state)
+```
+
+Plot mapped states.
+
+```{r}
+mypalette <- brewer.pal(n = n_distinct(tip.state), "Set1")
+names(mypalette) <- unique(tip.state)
+
+plotSimmap(asr, colors = mypalette, pts = T, ftype = "off")
+```
+
+Counted transitions.
+
+```{r}
+countSimmap(asr)
+```
+
+Now try mapping life cycle complexity variable.
+
+```{r}
+dat_noSchmidtea <- mutate(dat_noSchmidtea, lcl.fac = if_else(lcl > 3, "3", as.character(lcl)))%>%
+  mutate(lcl.fac = factor(lcl.fac, labels = c("free-living", "simple", "2-host", "3-host")))
+```
+
+```{r}
+tip.state <- dat_noSchmidtea$lcl.fac[mv]
+names(tip.state)  <- dat_noSchmidtea$Parasite.species[mv]
+
+test_trans_mat <- matrix(c(0,1,0,0,3,0,1,0,0,3,0,1,0,0,3,0), 4) # transitions to complexity more likely than reversals
+asr <- make.simmap(tree.di, x = tip.state, 
+                   pi = c(1, 0, 0, 0),
+                   model = test_trans_mat)
+```
+
+```{r}
+mypalette <- brewer.pal(n = n_distinct(tip.state), "Set1")
+names(mypalette) <- unique(tip.state)
+
+plotSimmap(asr, colors = mypalette, ftype = "off")
+add.simmap.legend(colors = mypalette, vertical = F, prompt = F, leg = unique(tip.state))
+```
+
+
+```{r}
+countSimmap(asr)
+```
+
+```{r}
+tree.di <- multi2di(tree.di)
+tree.di <- compute.brlen(tree.di)
+asr <- ace(tip.state, tree.di, type = 'discrete')
+asr
+```
+
+```{r}
+cols <- apply(asr$lik.anc, 1, function(x) which(x == max(x)))
+cols <- colnames(asr$lik.anc)[cols]
+branch_col <- mypalette[match(cols, names(mypalette))]
+plot(tree.di, show.tip.label = F)
+nodelabels(bg = branch_col)
+```
+
+
+Nothing very satisfying looking. Let's separate nematodes and platyhelminths
+
+```{r}
+#add discrete var for mapping
+dat <- mutate(dat, lcl.fac = if_else(lcl > 3, "3", as.character(lcl)))%>%
+  mutate(lcl.fac = factor(lcl.fac, labels = c("free-living", "simple", "2-host", "3-host")))
+
+nem <- filter(dat, grepl(Clade, pattern = "Clade ")) # all nems begin with 'Clade'
+platy <- filter(dat, !grepl(Clade, pattern = "Clade ")) # rest are platyhelminthes
+```
+
+Can try re-resolving names with more specific context_name argument
+
+```{r}
+nem_names <- tnrs_match_names(nem$Parasite.species, context_name = "Nematodes")
+platy_names <- tnrs_match_names(platy$Parasite.species, context_name = "Platyhelminthes")
+```
+
+```{r}
+nem_in_tree <- is_in_tree(ott_id(nem_names))
+nem_in_tree[!(nem_in_tree)] # all in tree
+```
+
+```{r}
+platy_in_tree <- is_in_tree(ott_id(platy_names))
+platy_in_tree[!(platy_in_tree)]
+```
+
+```{r}
+rm(nem_in_tree, platy_in_tree)
+platy <- filter(platy, Parasite.species != "Schmidtea mediterranea")
+platy_names <- filter(platy_names, unique_name != "Schmidtea mediterranea")
+```
+
+Get subtrees
+
+```{r}
+nem_tree <- tol_induced_subtree(ott_ids = nem_names$ott_id, label_format = "name")
+platy_tree <- tol_induced_subtree(ott_ids = platy_names$ott_id, label_format = "name")
+```
+
+
+```{r}
+# remove _ from tip labels, so it will match species names in data table
+nem_tree$tip.label <- gsub(pattern = "_", replacement =  " ", x = nem_tree$tip.label)
+platy_tree$tip.label <- gsub(pattern = "_", replacement =  " ", x = platy_tree$tip.label)
+
+# add branch lengths
+nem_treedi <- compute.brlen(nem_tree) # simple branch lengths
+platy_treedi <- compute.brlen(platy_tree) # simple branch lengths
+
+# tip states for mapping
+mv <- match(nem_treedi$tip.label, nem$Parasite.species)
+nem.tip.state <- nem$lcl.fac[mv]
+names(nem.tip.state)  <- nem$Parasite.species[mv]
+
+mv <- match(platy_treedi$tip.label, platy$Parasite.species)
+platy.tip.state <- platy$lcl.fac[mv]
+names(platy.tip.state)  <- platy$Parasite.species[mv]
+```
+
+
+```{r}
+nem.asr <- make.simmap(nem_treedi, x = nem.tip.state, pi = c(1,0,0,0))
+```
+
+Plot mapped states.
+
+```{r}
+mypalette <- brewer.pal(n = n_distinct(nem.tip.state), "Set1")
+names(mypalette) <- c("free-living", "simple", "2-host", "3-host")
+plotSimmap(nem.asr, colors = mypalette, pts = F, ftype = "off")
+add.simmap.legend(colors = mypalette, vertical = F, prompt = F, leg = unique(tip.state))
+```
+
+
+```{r}
+platy.asr <- make.simmap(platy_treedi, x = platy.tip.state, pi = c(1,0,0,0))
+```
+
+
+
+```{r}
+mypalette <- brewer.pal(n = n_distinct(platy.tip.state), "Set1")
+names(mypalette) <- c("free-living", "simple", "2-host", "3-host")
+
+plotSimmap(platy.asr, colors = mypalette, pts = F, ftype = "off")
+add.simmap.legend(colors = mypalette, vertical = F, prompt = F, leg = unique(tip.state))
+ggsave(filename = "")
+```

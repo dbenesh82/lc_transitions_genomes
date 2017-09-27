@@ -1,0 +1,115 @@
+Parasite.species,Clade,transmission,parasitism,lcl,remarks
+Acanthocheilonema viteae,Clade III,filarial,animal,2,
+Ancylostoma caninum,Clade V,penetration,animal,1,
+Ancylostoma ceylanicum,Clade V,penetration,animal,1,
+Ancylostoma duodenale,Clade V,penetration,animal,1,
+Angiostrongylus cantonensis,Clade V,trophic,animal,3,
+Angiostrongylus costaricensis,Clade V,trophic,animal,2,
+Anisakis simplex,Clade III,trophic,animal,4,
+Ascaris lumbricoides,Clade III,trophic,animal,1,
+Ascaris suum,Clade III,trophic,animal,1,
+Brugia malayi,Clade III,filarial,animal,2,
+Brugia pahangi,Clade III,filarial,animal,2,
+Brugia timori,Clade III,filarial,animal,2,
+Bursaphelenchus xylophilus,Clade IV,phoresis,plant,1,plant parasite
+Caenorhabditis angaria,Clade V,free-living,free-living,0,
+Caenorhabditis brenneri,Clade V,free-living,free-living,0,
+Caenorhabditis briggsae,Clade V,free-living,free-living,0,
+Caenorhabditis elegans,Clade V,free-living,free-living,0,
+Caenorhabditis japonica,Clade V,free-living,free-living,0,
+Caenorhabditis remanei,Clade V,free-living,free-living,0,
+Caenorhabditis sinica,Clade V,free-living,free-living,0,
+Caenorhabditis tropicalis,Clade V,free-living,free-living,0,
+Cylicostephanus goldi,Clade V,trophic,animal,1,
+Dictyocaulus viviparus,Clade V,trophic,animal,1,
+Dirofilaria immitis,Clade III,filarial,animal,2,
+Ditylenchus destructor,Clade IV,free-living,plant,1,
+Dracunculus medinensis,Clade III,trophic,animal,2,
+Elaeophora elaphi,Clade III,filarial,animal,2,
+Enterobius vermicularis,Clade III,trophic,animal,1,
+Globodera pallida,Clade IV,free-living,plant,1,
+Globodera rostochiensis,Clade IV,free-living,plant,1,
+Gongylonema pulchrum,Clade III,trophic,animal,2,
+Haemonchus contortus,Clade V,trophic,animal,1,
+Haemonchus placei,Clade V,trophic,animal,1,
+Heligmosomoides polygyrus,Clade V,trophic,animal,1,
+Heterorhabditis bacteriophora,Clade V,penetration,animal,1,entomopathogenic nematode
+Litomosoides sigmodontis,Clade III,filarial,animal,2,
+Loa loa,Clade III,filarial,animal,2,
+Meloidogyne floridensis,Clade IV,free-living,plant,1,
+Meloidogyne hapla,Clade IV,free-living,plant,1,
+Meloidogyne incognita,Clade IV,free-living,plant,1,
+Necator americanus,Clade V,penetration,animal,1,
+Nippostrongylus brasiliensis,Clade V,penetration,animal,1,
+Oesophagostomum dentatum,Clade V,trophic,animal,1,
+Onchocerca flexuosa,Clade III,filarial,animal,2,
+Onchocerca ochengi,Clade III,filarial,animal,2,
+Onchocerca volvulus,Clade III,filarial,animal,2,
+Panagrellus redivivus,Clade IV,free-living,free-living,0,
+Parascaris equorum,Clade III,trophic,animal,1,
+Parastrongyloides trichosuri,Clade IV,penetration,animal,1,also have free-living generations in soil
+Pristionchus exspectatus,Clade V,phoresis,free-living,0,"ride beetles until they die, consume corpse"
+Pristionchus pacificus,Clade V,phoresis,free-living,0,"ride beetles until they die, consume corpse"
+Rhabditophanes sp. KR3021,Clade IV,phoresis,free-living,0,not sure about this classification
+Romanomermis culicivorax,Clade I,penetration,animal,1,mermithid parasitoid
+Soboliphyme baturini,Clade I,trophic,animal,3,
+Steinernema carpocapsae,Clade IV,penetration,animal,1,entomopathogenic nematode
+Steinernema feltiae,Clade IV,penetration,animal,1,entomopathogenic nematode
+Steinernema glaseri,Clade IV,penetration,animal,1,entomopathogenic nematode
+Steinernema monticolum,Clade IV,penetration,animal,1,entomopathogenic nematode
+Steinernema scapterisci,Clade IV,penetration,animal,1,entomopathogenic nematode
+Strongyloides papillosus,Clade IV,penetration,animal,1,also have free-living generations in soil
+Strongyloides ratti,Clade IV,penetration,animal,1,also have free-living generations in soil
+Strongyloides stercoralis,Clade IV,penetration,animal,1,also have free-living generations in soil
+Strongyloides venezuelensis,Clade IV,penetration,animal,1,also have free-living generations in soil
+Strongylus vulgaris,Clade V,trophic,animal,1,
+Syphacia muris,Clade III,trophic,animal,1,
+Teladorsagia circumcincta,Clade V,trophic,animal,1,
+Thelazia callipaeda,Clade III,filarial,animal,2,transmitted by tear-sucking flies
+Toxocara canis,Clade III,trophic,animal,2,
+Trichinella britovi,Clade I,trophic,animal,2,"Trichinella require two hosts, but the hosts are both int and def host, and transmission is via predation or scavenging"
+Trichinella murrelli,Clade I,trophic,animal,2,"Trichinella require two hosts, but the hosts are both int and def host, and transmission is via predation or scavenging"
+Trichinella nativa,Clade I,trophic,animal,2,"Trichinella require two hosts, but the hosts are both int and def host, and transmission is via predation or scavenging"
+Trichinella nelsoni,Clade I,trophic,animal,2,"Trichinella require two hosts, but the hosts are both int and def host, and transmission is via predation or scavenging"
+Trichinella papuae,Clade I,trophic,animal,2,"Trichinella require two hosts, but the hosts are both int and def host, and transmission is via predation or scavenging"
+Trichinella patagoniensis,Clade I,trophic,animal,2,"Trichinella require two hosts, but the hosts are both int and def host, and transmission is via predation or scavenging"
+Trichinella pseudospiralis,Clade I,trophic,animal,2,"Trichinella require two hosts, but the hosts are both int and def host, and transmission is via predation or scavenging"
+Trichinella spiralis,Clade I,trophic,animal,2,"Trichinella require two hosts, but the hosts are both int and def host, and transmission is via predation or scavenging"
+Trichinella sp. T6,Clade I,trophic,animal,2,"Trichinella require two hosts, but the hosts are both int and def host, and transmission is via predation or scavenging"
+Trichinella sp. T8,Clade I,trophic,animal,2,"Trichinella require two hosts, but the hosts are both int and def host, and transmission is via predation or scavenging"
+Trichinella sp. T9,Clade I,trophic,animal,2,"Trichinella require two hosts, but the hosts are both int and def host, and transmission is via predation or scavenging"
+Trichinella zimbabwensis,Clade I,trophic,animal,2,"Trichinella require two hosts, but the hosts are both int and def host, and transmission is via predation or scavenging"
+Trichuris muris,Clade I,trophic,animal,1,
+Trichuris suis,Clade I,trophic,animal,1,
+Trichuris trichiura,Clade I,trophic,animal,1,
+Wuchereria bancrofti,Clade III,filarial,animal,2,
+Clonorchis sinensis,Trematoda (Flukes),trophic; penetration,animal,3,
+Diphyllobothrium latum,Cestoda (Tapeworms),trophic,animal,4,
+Echinococcus canadensis,Cestoda (Tapeworms),trophic,animal,2,
+Echinococcus granulosus,Cestoda (Tapeworms),trophic,animal,2,
+Echinococcus multilocularis,Cestoda (Tapeworms),trophic,animal,2,
+Echinostoma caproni,Trematoda (Flukes),trophic; penetration,animal,3,
+Fasciola hepatica,Trematoda (Flukes),trophic; penetration,animal,2,metacercariae on plants
+Gyrodactylus salaris,Monogenea,free-living,animal,1,ectoparasite
+Hydatigera taeniaeformis,Cestoda (Tapeworms),trophic,animal,2,
+Hymenolepis diminuta,Cestoda (Tapeworms),trophic,animal,2,
+Hymenolepis microstoma,Cestoda (Tapeworms),trophic,animal,2,
+Hymenolepis nana,Cestoda (Tapeworms),trophic,animal,2,
+Macrostomum lignano,Rhabditophora,free-living,free-living,0,
+Mesocestoides corti,Cestoda (Tapeworms),trophic,animal,3,
+Opisthorchis viverrini,Trematoda (Flukes),trophic; penetration,animal,3,
+Protopolystoma xenopodis,Monogenea,free-living,animal,1,ectoparasite
+Schistocephalus solidus,Cestoda (Tapeworms),trophic,animal,3,
+Schistosoma curassoni,Trematoda (Flukes),penetration,animal,2,
+Schistosoma haematobium,Trematoda (Flukes),penetration,animal,2,
+Schistosoma japonicum,Trematoda (Flukes),penetration,animal,2,
+Schistosoma mansoni,Trematoda (Flukes),penetration,animal,2,
+Schistosoma margrebowiei,Trematoda (Flukes),penetration,animal,2,
+Schistosoma mattheei,Trematoda (Flukes),penetration,animal,2,
+Schistosoma rodhaini,Trematoda (Flukes),penetration,animal,2,
+Schmidtea mediterranea,Rhabditophora,free-living,free-living,0,
+Spirometra erinaceieuropaei,Cestoda (Tapeworms),trophic,animal,4,
+Taenia asiatica,Cestoda (Tapeworms),trophic,animal,2,
+Taenia saginata,Cestoda (Tapeworms),trophic,animal,2,
+Taenia solium,Cestoda (Tapeworms),trophic,animal,2,
+Trichobilharzia regenti,Trematoda (Flukes),penetration,animal,2,
