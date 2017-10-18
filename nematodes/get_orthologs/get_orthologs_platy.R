@@ -65,6 +65,6 @@ platy_genes <- filter(platy_genes, !(Smansoni %in% Smansoni_remove$Smansoni),
 
 
 out <- platy_genes$Smansoni
-write(out, file = "platy_orthologs.txt")
+write.table(out, file = "get_orthologs/platy_orthologs.csv",sep = ",", row.names = F)
 
 
