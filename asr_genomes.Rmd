@@ -69,7 +69,7 @@ names(tip.state)  <- dat_noSchmidtea$Parasite.species[mv]
 #Nnode <- tree.di$Nnode
 #tree.di$node.label <- (1:Nnode+(1+Nnode))
 
-tree.di <- compute.brlen(tree.di) # simple branch lengths
+tree.di <- compute.brlen(genome_tree) # simple branch lengths
 ```
 
 Stochastic character mapping. Might not be the best approach...
@@ -225,7 +225,6 @@ platy.asr <- make.simmap(platy_treedi, x = platy.tip.state, pi = c(1,0,0,0))
 mypalette <- brewer.pal(n = n_distinct(platy.tip.state), "Set1")
 names(mypalette) <- c("free-living", "simple", "2-host", "3-host")
 
-plotSimmap(platy.asr, colors = mypalette, pts = F, ftype = "off")
+plotSimmap(platy.asr, colors = mypalette, pts = F)
 add.simmap.legend(colors = mypalette, vertical = F, prompt = F, leg = unique(tip.state))
-ggsave(filename = "")
 ```
