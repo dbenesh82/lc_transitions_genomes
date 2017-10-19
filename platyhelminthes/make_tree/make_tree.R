@@ -15,8 +15,6 @@ plot(up_tree)
 
 
 # max likelihood
-njfit <- pml(nj_tree, data=platy)
-
 # mt <- modelTest(platy, model=c("JTT", "LG", "WAG"))
 # best_mod = "JTT+G+I"
 

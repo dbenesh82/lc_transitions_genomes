@@ -5,24 +5,25 @@ source("platyhelminthes/align_sequences/clean_alignment_function.R") # for clean
 options(stringsAsFactors = FALSE)
 
 # read in ortholog names, make into character vector
-orthologs <- read.csv(file = "platyhelminthes/get_orthologs/platy_orthologs.csv")
+orthologs <- read.csv(file = "nematodes/get_orthologs/nem_orthologs.csv")
 orthologs <- orthologs$x
 
 
 # open every alignment fasta and check the number of species
-# skip the ones with fewer than 26 species
+# skip the ones with fewer than 70 species
 ortho_to_test <- character()
 for(o in orthologs){
   
   # make file name string
-  file_name <- paste("platyhelminthes/fasta_files/", o, ".txt", sep = "")
+  file_name <- paste("nematodes/fasta_files/", o, ".txt", sep = "")
   
   if(!file.exists(file_name)) { # if no file, skip it
     next
   } else {
     
     al <- read.alignment(file_name, format = 'fasta')
-    if(al$nb >= 26) { # if sequences for at least 26 flatworms, skip
+    print(al$nb)
+    if(al$nb >= 70) { # if sequences for at least 70 worms, skip
       ortho_to_test <- c(ortho_to_test, o)
     }
   }
@@ -36,7 +37,7 @@ for(o in orthologs){
 for(o in ortho_to_test){
   
   # make file name string
-  file_name <- paste("platyhelminthes/fasta_files/", o, ".txt", sep = "")
+  file_name <- paste("nematodes/fasta_files/", o, ".txt", sep = "")
   
   # read in fasta in msa alignment format
   fasta <- readAAStringSet(file = file_name)
@@ -47,7 +48,7 @@ for(o in ortho_to_test){
   # clean up alignment; remove gaps, non-conserved regions
   alignment <- cleanAlignment(alignment, 30, 30)
   
-  file_name <- paste("platyhelminthes/align_sequences/alignments/", o, ".txt", sep = "")
+  file_name <- paste("nematodes/align_sequences/alignments/", o, ".txt", sep = "")
   
   write.fasta(sequences = as.list(alignment$seq),
               names = alignment$nam,

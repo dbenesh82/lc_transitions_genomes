@@ -11,7 +11,7 @@ from call_wormbase_api import call_wormbase, extract_returned_aa_seq
 
 # import list of orthologs acquired from biomart
 orthologs = []
-with open("..\get_orthologs\nem_orthologs.csv", newline='') as f:
+with open("..\\get_orthologs\\nem_orthologs.csv", newline='') as f:
     reader = csv.reader(f)
     for row in reader:
         orthologs.append(row[0])
