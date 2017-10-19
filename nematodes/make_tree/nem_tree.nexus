@@ -1,0 +1,215 @@
+#NEXUS
+[R-package APE, Thu Oct 19 16:59:43 2017]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 101;
+	TAXLABELS
+		acanthocheilonema.viteae
+		ancylostoma.caninum
+		ancylostoma.ceylanicum
+		ancylostoma.ceylanicum.1
+		ancylostoma.duodenale
+		angiostrongylus.cantonensis
+		angiostrongylus.costaricensis
+		anisakis.simplex
+		ascaris.lumbricoides
+		ascaris.suum
+		ascaris.suum.1
+		brugia.malayi
+		brugia.pahangi
+		brugia.timori
+		bursaphelenchus.xylophilus
+		caenorhabditis.angaria
+		caenorhabditis.brenneri
+		caenorhabditis.briggsae
+		caenorhabditis.elegans
+		caenorhabditis.japonica
+		caenorhabditis.remanei
+		caenorhabditis.sinica
+		caenorhabditis.tropicalis
+		cylicostephanus.goldi
+		dictyocaulus.viviparus
+		dictyocaulus.viviparus.1
+		dirofilaria.immitis
+		ditylenchus.destructor
+		dracunculus.medinensis
+		elaeophora.elaphi
+		enterobius.vermicularis
+		globodera.pallida
+		globodera.rostochiensis
+		gongylonema.pulchrum
+		haemonchus.contortus
+		haemonchus.contortus.1
+		haemonchus.placei
+		heligmosomoides.polygyrus
+		heligmosomoides.polygyrus.1
+		heterorhabditis.bacteriophora
+		litomosoides.sigmodontis
+		loa.loa
+		loa.loa.1
+		meloidogyne.floridensis
+		meloidogyne.hapla
+		meloidogyne.incognita
+		necator.americanus
+		nippostrongylus.brasiliensis
+		oesophagostomum.dentatum
+		onchocerca.flexuosa
+		onchocerca.ochengi
+		onchocerca.ochengi.1
+		onchocerca.volvulus
+		panagrellus.redivivus
+		parascaris.equorum
+		parastrongyloides.trichosuri
+		pristionchus.exspectatus
+		pristionchus.pacificus
+		rhabditophanes.sp._kr3021
+		romanomermis.culicivorax
+		soboliphyme.baturini
+		steinernema.carpocapsae
+		steinernema.feltiae
+		steinernema.glaseri
+		steinernema.monticolum
+		steinernema.scapterisci
+		strongyloides.papillosus
+		strongyloides.ratti
+		strongyloides.stercoralis
+		strongyloides.venezuelensis
+		strongylus.vulgaris
+		syphacia.muris
+		teladorsagia.circumcincta
+		thelazia.callipaeda
+		toxocara.canis
+		toxocara.canis.1
+		trichinella.britovi
+		trichinella.murrelli
+		trichinella.nativa
+		trichinella.nativa.1
+		trichinella.nelsoni
+		trichinella.papuae
+		trichinella.patagoniensis
+		trichinella.spiralis
+		trichinella.spiralis.1
+		trichinella.zimbabwensis
+		trichuris.muris
+		trichuris.suis
+		trichuris.suis.1
+		trichuris.suis.2
+		trichuris.trichiura
+		wuchereria.bancrofti
+		wuchereria.bancrofti.1
+		trichinella.pseudospiralis
+		trichinella.pseudospiralis.1
+		trichinella.pseudospiralis.2
+		trichinella.pseudospiralis.3
+		trichinella.pseudospiralis.4
+		trichinella.sp._t6
+		trichinella.sp._t8
+		trichinella.sp._t9
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	acanthocheilonema.viteae,
+		2	ancylostoma.caninum,
+		3	ancylostoma.ceylanicum,
+		4	ancylostoma.ceylanicum.1,
+		5	ancylostoma.duodenale,
+		6	angiostrongylus.cantonensis,
+		7	angiostrongylus.costaricensis,
+		8	anisakis.simplex,
+		9	ascaris.lumbricoides,
+		10	ascaris.suum,
+		11	ascaris.suum.1,
+		12	brugia.malayi,
+		13	brugia.pahangi,
+		14	brugia.timori,
+		15	bursaphelenchus.xylophilus,
+		16	caenorhabditis.angaria,
+		17	caenorhabditis.brenneri,
+		18	caenorhabditis.briggsae,
+		19	caenorhabditis.elegans,
+		20	caenorhabditis.japonica,
+		21	caenorhabditis.remanei,
+		22	caenorhabditis.sinica,
+		23	caenorhabditis.tropicalis,
+		24	cylicostephanus.goldi,
+		25	dictyocaulus.viviparus,
+		26	dictyocaulus.viviparus.1,
+		27	dirofilaria.immitis,
+		28	ditylenchus.destructor,
+		29	dracunculus.medinensis,
+		30	elaeophora.elaphi,
+		31	enterobius.vermicularis,
+		32	globodera.pallida,
+		33	globodera.rostochiensis,
+		34	gongylonema.pulchrum,
+		35	haemonchus.contortus,
+		36	haemonchus.contortus.1,
+		37	haemonchus.placei,
+		38	heligmosomoides.polygyrus,
+		39	heligmosomoides.polygyrus.1,
+		40	heterorhabditis.bacteriophora,
+		41	litomosoides.sigmodontis,
+		42	loa.loa,
+		43	loa.loa.1,
+		44	meloidogyne.floridensis,
+		45	meloidogyne.hapla,
+		46	meloidogyne.incognita,
+		47	necator.americanus,
+		48	nippostrongylus.brasiliensis,
+		49	oesophagostomum.dentatum,
+		50	onchocerca.flexuosa,
+		51	onchocerca.ochengi,
+		52	onchocerca.ochengi.1,
+		53	onchocerca.volvulus,
+		54	panagrellus.redivivus,
+		55	parascaris.equorum,
+		56	parastrongyloides.trichosuri,
+		57	pristionchus.exspectatus,
+		58	pristionchus.pacificus,
+		59	rhabditophanes.sp._kr3021,
+		60	romanomermis.culicivorax,
+		61	soboliphyme.baturini,
+		62	steinernema.carpocapsae,
+		63	steinernema.feltiae,
+		64	steinernema.glaseri,
+		65	steinernema.monticolum,
+		66	steinernema.scapterisci,
+		67	strongyloides.papillosus,
+		68	strongyloides.ratti,
+		69	strongyloides.stercoralis,
+		70	strongyloides.venezuelensis,
+		71	strongylus.vulgaris,
+		72	syphacia.muris,
+		73	teladorsagia.circumcincta,
+		74	thelazia.callipaeda,
+		75	toxocara.canis,
+		76	toxocara.canis.1,
+		77	trichinella.britovi,
+		78	trichinella.murrelli,
+		79	trichinella.nativa,
+		80	trichinella.nativa.1,
+		81	trichinella.nelsoni,
+		82	trichinella.papuae,
+		83	trichinella.patagoniensis,
+		84	trichinella.spiralis,
+		85	trichinella.spiralis.1,
+		86	trichinella.zimbabwensis,
+		87	trichuris.muris,
+		88	trichuris.suis,
+		89	trichuris.suis.1,
+		90	trichuris.suis.2,
+		91	trichuris.trichiura,
+		92	wuchereria.bancrofti,
+		93	wuchereria.bancrofti.1,
+		94	trichinella.pseudospiralis,
+		95	trichinella.pseudospiralis.1,
+		96	trichinella.pseudospiralis.2,
+		97	trichinella.pseudospiralis.3,
+		98	trichinella.pseudospiralis.4,
+		99	trichinella.sp._t6,
+		100	trichinella.sp._t8,
+		101	trichinella.sp._t9
+	;
+	TREE * UNTITLED = [&U] ((42:0.001627612075,43:1e-08):0.02637608781,((((((((((((89:1e-08,90:0.0005740652677):0.02623623147,88:0.01379099029):0.04237275081,91:0.0439368278):0.05382879318,87:0.135948934):0.2150411993,((82:0.0007638408667,86:0.0128409125):0.01894164232,((84:0.004661520419,85:0.004482649752):0.002330583687,(((77:0.00161159563,(79:0.002606212685,80:0.00652590377):0.008383062437):1e-08,(78:0.001789620786,83:0.006219286064):0.005284719217):0.003408306659,81:0.003504464821):0.00117462782):0.01648224328):0.2386918161):0.215653896,(60:0.4577213795,61:0.3370617858):0.07086444693):0.3100486553,(((28:0.2797295408,(((44:0.005557379225,46:0.07765100204):0.03563773393,45:0.0526171515):0.2433655392,(32:0.04618327036,33:0.0147620879):0.2759363636):0.2060814715):0.06468972799,15:0.3878420284):0.02030943573,54:0.3645688579):0.06053406657):0.03585327163,(((((62:0.02451939575,66:0.02673122053):0.05433702457,64:0.09338093157):0.01033444167,(63:0.05967166966,65:0.05478910412):0.01302365639):0.1811511921,(((((((18:0.03187804842,22:0.03698587292):0.0119081161,((23:0.05341601735,19:0.04568591532):0.01189956857,21:0.05555142473):0.008398725249):0.008058412479,17:0.03771908229):0.0173211245,20:0.1666234636):0.05170675018,16:0.1551403618):0.1929604135,((40:0.3508692873,(59:0,94:0,95:0,96:0,97:0,98:0,99:0,100:0,101:0):1e-08):0.1692274554,((((((36:0.1152437099,(35:0.005217893767,37:0.02126901351):1e-08):0.02296353342,73:0.0559686811):0.01111198431,48:0.07221979165):0.002100453235,71:1e-08):1e-08,(((47:0.03513073689,24:0.09147745358):0.003893762561,(2:0.003033170799,(3:0.002822492652,(5:0.1529729058,4:0.01040250225):0.003539551686):0.01176392127):0.01222695012):0.03107774638,((38:1e-08,49:0.1106045308):0.09908796631,39:0.0006462356111):0.04967496273):0.00776498264):0.01635792351,((25:0.008805653333,26:1e-08):0.06750398637,(6:0.009227635687,7:0.009972790578):0.03773165859):0.01919037514):0.06266624419):0.03673382661):0.04894919104,(57:0.01384475482,58:0.01847005743):0.2885111223):0.06846450894):0.02448018333,(((68:0.02735694194,69:0.03887866702):0.0313618538,(67:0.005974717888,70:0.01151068912):0.04120623844):0.06031642468,56:0.04261963615):0.337188342):0.0154039554):0.03534574099,((31:0.08224988532,72:0.1454593919):0.1367238989,((((((10:0.001129993192,11:0.01689928731):0.01574668493,9:0.01931816292):0.00810788662,55:0.1500865885):0.04316340147,(75:0.003209800264,76:0.0009208639119):0.04506986277):0.03233518557,8:0.1307307746):0.03373074757,29:0.3021384548):0.02333487479):0.0201048128):0.1211583508,74:0.09135172668):0.02582212404,(27:0.02231434623,(((52:0.0005660609488,51:0.01252984168):1e-08,53:0.00144775407):0.009960753234,50:0.07828959084):0.01885823653):0.00904480898):0.006992733963,((1:0.01895996587,41:0.04469462288):0.004083879954,30:0.0298094878):0.003234907959):0.003524934173,((92:0.02712692246,93:0.008121867771):0.003493455896,((34:0.1443844386,13:1e-08):0.01660427251,(12:0.00199312019,14:0.006305017338):1e-08):0.009745795294):0.01946929546);
+END;
