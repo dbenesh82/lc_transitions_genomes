@@ -19,8 +19,8 @@ orthologs = orthologs[1:] # remove first element (header)
 
 
 
-# just take a small number to test; might randomize...
-ortho_test = orthologs[0:100]
+ # just take a random number to test
+ortho_test = orthologs[0:500]
 
 
 

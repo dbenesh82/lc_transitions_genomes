@@ -86,11 +86,3 @@ write.fasta(sequences = as.list(alignx$seq),
             file.out = "platyhelminthes/align_sequences/platy_aa_alignment.fasta",
             as.string=TRUE)
 
-
-# d <- dist.alignment(alignx, matrix = "identity")
-# nj_tree <- njs(d)
-# plot(nj_tree)
-
-nj_tree
-??ultrametric
-
