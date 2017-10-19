@@ -3,33 +3,6 @@ library(ggplot2)
 library(dplyr)
 options(stringsAsFactors = FALSE)
 
-# read in ortholog names, make into character vector
-orthologs <- read.csv(file = "platyhelminthes/get_orthologs/platy_orthologs.csv")
-orthologs <- orthologs$x
-
-
-
-# open every alignment fasta and check the number of species
-# skip the ones with fewer than 26 species
-ortho_to_test <- character()
-for(o in orthologs){
-  
-  # make file name string
-  file_name <- paste("platyhelminthes/align_sequences/alignments/", o, ".txt", sep = "")
-  
-  if(!file.exists(file_name)) { # if no file, skip it
-    next
-  } else {
-    
-    al <- read.alignment(file_name, format = 'fasta')
-    if(al$nb >= 26) { # if sequences for at least 26 flatworms, skip
-      ortho_to_test <- c(ortho_to_test, o)
-    }
-  }
-}
-
-
-
 
 
 # the alignment for each gene will be combined with this df; it's column is genome ids
@@ -56,18 +29,21 @@ out_df <- data.frame(name = c('clonorchis_sinensis_prjda72781','diphyllobothrium
 
 
 
+align_files <- list.files(path = "platyhelminthes/align_sequences/alignments/.")
+ortho_to_test <- sub(align_files, pattern = ".txt", replacement = "")
+
+
 # combine alignments into single data frame
-for(o in ortho_to_test){
-  
-  # make file name string
-  file_name <- paste("platyhelminthes/align_sequences/alignments/", o, ".txt", sep = "")
+for(i in seq_along(ortho_to_test)){
   
   # open alignment
+  file_name <- paste("platyhelminthes/align_sequences/alignments/", align_files[i], sep="")
   alignment <- read.alignment(file_name, format = 'fasta')
   
   # make alignment into data frame
   align_df <- data.frame(name = alignment$nam, seq = unlist(alignment$seq))
-  names(align_df) <- c("name", o)
+  gene <- ortho_to_test[i]
+  names(align_df) <- c("name", gene)
   
   # join alignment with out df
   out_df <- full_join(out_df, align_df)
@@ -76,12 +52,12 @@ for(o in ortho_to_test){
   # replace those missing cells with "--"
   align_length <- nchar(alignment$seq[[1]])
   missing_str <- paste(rep("-", times = align_length), collapse = "")
-  out_df[,o] <- if_else( is.na(out_df[,o]), missing_str, out_df[,o])
+  out_df[,gene] <- if_else( is.na(out_df[,gene]), missing_str, out_df[,gene])
 }
 
 
 
-sapply(out_df, function(x)sum(is.na(x)))
+# sapply(out_df, function(x)sum(is.na(x))) # check if any missing values in combined alignment
 
 
 # combine alignments into single character vector
@@ -110,9 +86,10 @@ write.fasta(sequences = as.list(alignx$seq),
             file.out = "platyhelminthes/align_sequences/platy_aa_alignment.fasta",
             as.string=TRUE)
 
-d <- dist.alignment(alignx, matrix = "identity")
-nj_tree <- njs(d)
-plot(nj_tree)
+
+# d <- dist.alignment(alignx, matrix = "identity")
+# nj_tree <- njs(d)
+# plot(nj_tree)
 
 nj_tree
 ??ultrametric
