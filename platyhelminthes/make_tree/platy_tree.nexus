@@ -1,0 +1,79 @@
+#NEXUS
+[R-package APE, Thu Oct 19 16:03:16 2017]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 33;
+	TAXLABELS
+		clonorchis.sinensis
+		diphyllobothrium.latum
+		echinococcus.canadensis
+		echinococcus.granulosus
+		echinococcus.granulosus.1
+		echinococcus.multilocularis
+		echinostoma.caproni
+		fasciola.hepatica
+		fasciola.hepatica.1
+		gyrodactylus.salaris
+		hydatigera.taeniaeformis
+		hymenolepis.diminuta
+		hymenolepis.microstoma
+		hymenolepis.nana
+		macrostomum.lignano
+		mesocestoides.corti
+		opisthorchis.viverrini
+		protopolystoma.xenopodis
+		schistocephalus.solidus
+		schistosoma.curassoni
+		schistosoma.haematobium
+		schistosoma.japonicum
+		schistosoma.mansoni
+		schistosoma.margrebowiei
+		schistosoma.mattheei
+		schistosoma.rodhaini
+		schmidtea.mediterranea
+		spirometra.erinaceieuropaei
+		taenia.asiatica
+		taenia.asiatica.1
+		taenia.saginata
+		taenia.solium
+		trichobilharzia.regenti
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	clonorchis.sinensis,
+		2	diphyllobothrium.latum,
+		3	echinococcus.canadensis,
+		4	echinococcus.granulosus,
+		5	echinococcus.granulosus.1,
+		6	echinococcus.multilocularis,
+		7	echinostoma.caproni,
+		8	fasciola.hepatica,
+		9	fasciola.hepatica.1,
+		10	gyrodactylus.salaris,
+		11	hydatigera.taeniaeformis,
+		12	hymenolepis.diminuta,
+		13	hymenolepis.microstoma,
+		14	hymenolepis.nana,
+		15	macrostomum.lignano,
+		16	mesocestoides.corti,
+		17	opisthorchis.viverrini,
+		18	protopolystoma.xenopodis,
+		19	schistocephalus.solidus,
+		20	schistosoma.curassoni,
+		21	schistosoma.haematobium,
+		22	schistosoma.japonicum,
+		23	schistosoma.mansoni,
+		24	schistosoma.margrebowiei,
+		25	schistosoma.mattheei,
+		26	schistosoma.rodhaini,
+		27	schmidtea.mediterranea,
+		28	spirometra.erinaceieuropaei,
+		29	taenia.asiatica,
+		30	taenia.asiatica.1,
+		31	taenia.saginata,
+		32	taenia.solium,
+		33	trichobilharzia.regenti
+	;
+	TREE * UNTITLED = [&U] ((((((((6:0.009530695995,(4:1e-08,5:0.004588764478):0.005868891339):0.000462756874,3:0.003196921656):0.01870944867,((((30:0.007014567921,31:0.002189212282):0.008862042354,29:0.003157853869):0.001702075542,32:0.01502371674):0.01176472751,11:0.07140393502):0.009550637922):0.02763426585,((13:0.0189214887,14:0.03944076692):0.03263337082,12:0.03355157037):0.1252387238):0.04197570158,16:0.1194359394):0.130904426,((2:0.1390160258,19:0.04156271439):0.06493022045,28:0.3259256141):0.178060182):0.2003984883,((((8:0.02146106728,9:0.03077088722):0.09024940257,7:0.09240802032):0.1239303108,(1:0.006299096019,17:0.03233923692):0.1816491004):0.07201456868,((22:0.0821729221,((26:0.02335163754,23:0.004713122955):0.01214169146,(((20:0.003506606156,24:0.02359684025):0.004354027349,25:0.03396070544):0.03868492499,21:0.01506659888):0.008557343345):0.0325384852):0.04140176653,33:0.1200312862):0.1917238754):0.1852371208):0.08136353264,((10:0.5093177235,15:1e-08):1.029068037,18:0.6085612112):0.09756862205,27:1.104277195);
+END;
