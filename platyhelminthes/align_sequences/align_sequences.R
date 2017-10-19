@@ -35,50 +35,17 @@ for(o in orthologs){
       alignment <- msaConvert(alignment, type="seqinr::alignment")
       # clean up alignment; remove gaps, non-conserved regions
       alignment <- cleanAlignment(alignment, 30, 30)
-      # make alignment into data frame
-      align_df <- data.frame(name = alignment$nam, seq = alignment$seq)
-      names(align_df) <- c("name", o)
       
-      # output alignments into a df
-      if(!exists('out_df')) { # if a combined out df does not exist create it
-        out_df <- align_df
-      } else {
-        out_df <- full_join(out_df, align_df)  # join existing df
-      }
+      file_name <- paste("platyhelminthes/align_sequences/alignments/", o, ".txt", sep = "")
       
-      # after join, some species lack orthologues for given gene
-      # replace those missing cells with "--"
-      align_length <- nchar(alignment$seq[1])
-      missing_str <- paste(rep("-", times = align_length), collapse = "")
-      out_df[,o] <- if_else( is.na(out_df[,o]), missing_str, out_df[,o])
+      write.fasta(sequences = as.list(alignment$seq),
+                  names = alignment$nam,
+                  file.out = file_name,
+                  as.string=TRUE)
       
       }
     }
 }
-
-
-
-sapply(out_df, function(x)sum(is.na(x)))
-
-
-cols <- names(out_df)[-1]
-out_df2 <- data.frame( seq = do.call(paste, c(out_df[cols], sep="")))
-for (co in cols) out_df[co] <- NULL
-
-out_df2 <- bind_cols(out_df, out_df2)
-
-
-alignx <- list(nb = length(out_df2$name),
-               nam = out_df2$name,
-               seq = out_df2$seq,
-               com = NA)
-attr(alignx, "class") <- "alignment"
-
-
-
-d <- dist.alignment(alignx, matrix = "identity")
-nj_tree <- nj(d)
-plot(nj_tree)
 
 
 
