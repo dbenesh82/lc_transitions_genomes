@@ -1,0 +1,155 @@
+---
+title: "Worm genomes and life cycle transitions"
+output: github_document
+---
+
+Check the phylogenies of exisiting helminth genomes to see how many life cycle length transitions occurred.
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(RColorBrewer)
+library(ape)
+library(phytools)
+
+options(stringsAsFactors = FALSE)
+
+# read data
+dat <- read.csv(file = "../../data/combined_data_files_filledin.csv", header = TRUE, sep = ',')
+
+# read tree
+tree <- read.nexus(file = "platy_tree.nexus")
+tree <- root(tree, outgroup = c("macrostomum.lignano", "schmidtea.mediterranea"), resolve.root = TRUE)
+```
+
+
+```{r}
+# create tip state for mapping
+dat <- mutate(dat, ps2 = sub(pattern = " ", replacement = ".", tolower(Parasite.species)))
+mv <- match(tree$tip.label, dat$ps2)
+tip.state <- dat$parasitism[mv]
+names(tip.state)  <- dat$ps2[mv]
+
+# drop tips with unmatched (e.g. species with two genomes)
+tree <- drop.tip(tree, tip = tree$tip.label[is.na(mv)])
+tip.state <- tip.state[!is.na(mv)]
+```
+
+Stochastic character mapping. Might not be the best approach...
+
+```{r}
+asr <- make.simmap(tree, x = tip.state)
+```
+
+Plot mapped states.
+
+```{r}
+mypalette <- brewer.pal(n = n_distinct(tip.state), "Set1")
+names(mypalette) <- unique(tip.state)
+
+plotSimmap(asr, colors = mypalette, pts = T, ftype = "off")
+```
+
+Counted transitions.
+
+```{r}
+countSimmap(asr)
+```
+
+Now try mapping life cycle complexity variable.
+
+```{r}
+dat <- mutate(dat, lcl.fac = if_else(lcl > 3, "3", as.character(lcl)))%>%
+  mutate(lcl.fac = factor(lcl.fac, labels = c("free-living", "1-host", "2-host", "3-host")))
+```
+
+```{r}
+tip.state <- dat$lcl.fac[mv]
+names(tip.state)  <- dat$ps2[mv]
+tip.state <- tip.state[!is.na(mv)]
+
+test_trans_mat <- matrix(c(0,1,0,0,3,0,1,0,0,3,0,1,0,0,3,0), 4) # transitions to complexity more likely than reversals
+asr <- make.simmap(tree, x = tip.state, 
+                   pi = c(1, 0, 0, 0),
+                   model = test_trans_mat)
+```
+
+```{r}
+mypalette <- brewer.pal(n = n_distinct(tip.state), "Set1")
+names(mypalette) <- unique(tip.state)
+
+plotSimmap(asr, colors = mypalette, ftype = "off")
+add.simmap.legend(colors = mypalette, vertical = F, prompt = F, leg = unique(tip.state))
+```
+
+Too much. Don't like this stochastic mapping.
+
+```{r}
+countSimmap(asr)
+```
+
+
+```{r}
+tree <- root(tree, outgroup = c("macrostomum.lignano", "schmidtea.mediterranea"), resolve.root = TRUE)
+tree$edge.length <- if_else(tree$edge.length == 0, 0.001, tree$edge.length)
+asr <- ace(tip.state, tree, type = 'discrete')
+asr
+```
+
+```{r}
+cols <- apply(asr$lik.anc, 1, function(x) which(x == max(x)))
+cols <- colnames(asr$lik.anc)[cols]
+branch_col <- mypalette[match(cols, names(mypalette))]
+```
+
+
+```{r}
+library(ggtree)
+```
+
+```{r}
+p <- ggtree(tree) + 
+  geom_tree() +
+  geom_tiplab() 
+p
+```
+
+```{r}
+tree_df <- fortify(tree) # make a df
+
+# nicer species names
+n1 <- toupper(substr(tree_df$label, start = 1, stop = 1))
+n2 <- substr(tree_df$label, start = 2, stop = nchar(tree_df$label))
+nic_sp_names <- paste(n1, n2, sep = "")
+nic_sp_names <- gsub(nic_sp_names, pattern = "\\.", replacement = " ")
+nic_sp_names[which(nic_sp_names == "NANA")] <- NA
+tree_df$label <- nic_sp_names
+
+# ancestral state reconstructions to add to tree; branch colors
+cols <- apply(asr$lik.anc, 1, function(x) which(x == max(x)))
+cols <- colnames(asr$lik.anc)[cols]
+
+# combine tip and branch states, add them to tree df (correct order)
+state <- c(as.character(tip.state), cols)
+tree_df$state <- state
+tree_df <- mutate(tree_df, 
+                  state = factor(state, levels = c("free-living", "1-host", "2-host", "3-host")))
+
+# plot tree
+ggtree(tree_df) + 
+  geom_tree(aes(color = state)) + 
+  geom_tiplab(aes(color = state), size = 3) +
+  xlim(0, max(tree_df$x) + 0.09) +
+  scale_color_manual(values = mypalette) +
+  theme(legend.position = c(0.25, 1), 
+        legend.justification = c(1,1),
+        legend.title = element_blank(),
+        legend.text = element_text(size = 14))
+
+
+ggsave(filename = "../../figs/platy_outtree.svg", width = 7.5, height = 5)
+```
+
+
+
