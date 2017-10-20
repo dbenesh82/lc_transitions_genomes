@@ -20,7 +20,7 @@ orthologs = orthologs[1:] # remove first element (header)
 
 
  # just take a random number to test
-ortho_test = orthologs[0:10]
+ortho_test = orthologs[301:500]
 
 
 
