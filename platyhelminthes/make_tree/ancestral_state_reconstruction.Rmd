@@ -89,22 +89,30 @@ Too much. Don't like this stochastic mapping.
 countSimmap(asr)
 ```
 
+Add short branch to root.
 
 ```{r}
-tree <- root(tree, outgroup = c("macrostomum.lignano", "schmidtea.mediterranea"), resolve.root = TRUE)
 tree$edge.length <- if_else(tree$edge.length == 0, 0.001, tree$edge.length)
-asr <- ace(tip.state, tree, type = 'discrete')
-asr
-```
-
-```{r}
-cols <- apply(asr$lik.anc, 1, function(x) which(x == max(x)))
-cols <- colnames(asr$lik.anc)[cols]
-branch_col <- mypalette[match(cols, names(mypalette))]
 ```
 
 
+Parsimony reconstruction
+
 ```{r}
+asr_mp <- MPR(tip.state, unroot(tree), outgroup = "macrostomum.lignano")
+asr_mp
+```
+
+Likelihood reconstruction
+
+```{r}
+asr_lk <- ace(tip.state, tree, type = 'discrete', model = "ER")
+asr_lk
+```
+
+Plot nice looking tree
+
+```{r message=FALSE, warning=FALSE}
 library(ggtree)
 ```
 
@@ -114,6 +122,8 @@ p <- ggtree(tree) +
   geom_tiplab() 
 p
 ```
+
+Make species names look nicer.
 
 ```{r}
 tree_df <- fortify(tree) # make a df
@@ -125,10 +135,14 @@ nic_sp_names <- paste(n1, n2, sep = "")
 nic_sp_names <- gsub(nic_sp_names, pattern = "\\.", replacement = " ")
 nic_sp_names[which(nic_sp_names == "NANA")] <- NA
 tree_df$label <- nic_sp_names
+```
 
+Plot tree with reconstructed ancestral states, starting with the likelihood reconstructions
+
+```{r}
 # ancestral state reconstructions to add to tree; branch colors
-cols <- apply(asr$lik.anc, 1, function(x) which(x == max(x)))
-cols <- colnames(asr$lik.anc)[cols]
+cols <- apply(asr_lk$lik.anc, 1, function(x) which(x == max(x)))
+cols <- colnames(asr_lk$lik.anc)[cols]
 
 # combine tip and branch states, add them to tree df (correct order)
 state <- c(as.character(tip.state), cols)
@@ -137,7 +151,7 @@ tree_df <- mutate(tree_df,
                   state = factor(state, levels = c("free-living", "1-host", "2-host", "3-host")))
 
 # plot tree
-ggtree(tree_df) + 
+p <- ggtree(tree_df) + 
   geom_tree(aes(color = state)) + 
   geom_tiplab(aes(color = state), size = 3) +
   xlim(0, max(tree_df$x) + 0.09) +
@@ -147,9 +161,77 @@ ggtree(tree_df) +
         legend.title = element_blank(),
         legend.text = element_text(size = 14))
 
-
-ggsave(filename = "../../figs/platy_outtree.svg", width = 7.5, height = 5)
+p + geom_text2(aes(subset=!isTip, label=node), hjust=-.3)
 ```
 
+Some of the branches near the root seem off. This is due to over-sampling of CLC parasites. But we know there are lots of 1-host cycle monogeneans between free-living and CLC parasites, so we can manually change these branches.
 
+```{r}
+tree_df[33:34,"state"] <- "1-host"
+p <- ggtree(tree_df) + 
+  geom_tree(aes(color = state)) + 
+  geom_tiplab(aes(color = state), size = 3) +
+  xlim(0, max(tree_df$x) + 0.09) +
+  scale_color_manual(values = mypalette) +
+  theme(legend.position = c(0.25, 1), 
+        legend.justification = c(1,1),
+        legend.title = element_blank(),
+        legend.text = element_text(size = 14))
+p
+```
+
+Can plot the parsimony reconstruction too.
+
+```{r}
+# ancestral states; MPR returns a matrix of states for parent-child nodes
+# for coloring branches need to take value for root 'parent' and combine it with all the child values
+cols <- c(asr_mp[1,1], asr_mp[,2])
+cols <- c("free-living", "1-host", "2-host", "3-host")[cols]
+
+# combine tip and branch states, add them to tree df (correct order)
+state <- c(as.character(tip.state), cols)
+tree_df$state <- state
+tree_df <- mutate(tree_df, 
+                  state = factor(state, levels = c("free-living", "1-host", "2-host", "3-host")))
+
+# plot tree
+p <- ggtree(tree_df) + 
+  geom_tree(aes(color = state)) + 
+  geom_tiplab(aes(color = state), size = 3) +
+  xlim(0, max(tree_df$x) + 0.09) +
+  scale_color_manual(values = mypalette) +
+  theme(legend.position = c(0.25, 1), 
+        legend.justification = c(1,1),
+        legend.title = element_blank(),
+        legend.text = element_text(size = 14))
+p
+```
+
+Unlike in the likelihood case, the parsimony algorithm correctly assigned branches near the root. To this tree we'll add clade labels and points marking the life cycle transitions.
+
+```{r}
+# add clade labels
+p <- p + 
+  xlim(0, max(tree_df$x) + 0.19) +
+  geom_cladelabel(node = 36, label = "Cestoda", offset = 0.13, color = "darkgray") +
+  geom_cladelabel(node = 49, label = "Trematoda", offset = 0.13, color = "darkgray")
+p
+```
+
+```{r}
+# add points marking transitions
+p + geom_text2(aes(subset=!isTip, label=node), hjust=-.3)
+trans_nodes <- c(34, 49, 51, 37) # get nodes of transition
+
+# add to plotting df
+tree_df <- mutate(tree_df, trans_node = if_else(node %in% trans_nodes, TRUE, FALSE))
+
+# add points onto plot
+p <- p +
+  geom_nodepoint(data = filter(tree_df, trans_node), 
+                 shape = 19, size = 4, color = "gray", alpha = 0.5) 
+p
+ggsave(filename = "../../figs/platy_outtree.svg", width = 7.5, height = 5)
+# fix labels in inkscape
+```
 
